@@ -1,54 +1,59 @@
-PNG to TIFF converter for high-resolution figures
+## PNG to TIFF Conversion Script
 
-This R script converts PNG images into high-resolution TIFF files (600 dpi) using the magick package.
-The purpose of the script is to prepare figures for manuscript submission or document preparation where TIFF format is required by journals or recommended to preserve image quality.
+This R script converts **PNG images into high-resolution TIFF files (600 dpi)** using the `magick` package.  
+It is useful when preparing figures for **scientific manuscripts, theses, or journal submissions** where TIFF format is required or recommended to preserve image quality.
 
-The script:
-	•	reads all PNG images from a specified directory
-	•	converts each image to TIFF format
-	•	applies a resolution of 600 dpi
-	•	disables compression to preserve image fidelity
-	•	saves the converted files into a dedicated output folder.
+### What the script does
 
-Usage
-	1.	Modify the input path to your image directory:
+- Reads all PNG images from a specified directory
+- Converts each image to TIFF format
+- Applies a resolution of **600 dpi**
+- Disables compression to preserve image fidelity
+- Saves the converted images into a dedicated output folder
 
-files <- list.files("~/path/to/your/images", pattern="png$", full.names=TRUE)
+## Usage
 
-	2.	Run the script in R.
-	3.	Converted TIFF files will be saved in:
+1. Modify the input path to your image directory:
 
-~/Desktop/immages/tiff_files
+```r
+files <- list.files("~/path/to/your/images", pattern = "png$", full.names = TRUE)
+```
 
-Requirements
+2. Run the script in R.
 
-The script requires the R package:
+3. Converted TIFF files will be saved in:
 
-magick
+```
+~/Desktop/images/tiff_files
+```
+
+---
+
+## Requirements
+
+The script requires the following R package:
+
+- **magick**
 
 Install it with:
 
+```r
 install.packages("magick")
+```
 
-Use case
-
-This utility is particularly useful when preparing figures for:
-	•	scientific manuscripts
-	•	thesis documents
-	•	journal submissions requiring TIFF figures
-	•	workflows where PNG screenshots must be converted to publication-ready formats.
-
-
-## Script
+### Script
 
 ```r
 library(magick)
 
-files <- list.files("~/path/to/your/images", pattern="png$", full.names=TRUE)
+# List all PNG images in the input directory
+files <- list.files("~/path/to/your/images", pattern = "png$", full.names = TRUE)
 
-dir.create("~/Desktop/immages/tiff_files", showWarnings=FALSE)
+# Create output directory if it does not exist
+dir.create("~/Desktop/immages/tiff_files", showWarnings = FALSE)
 
-for(f in files){
+# Convert each PNG file to TIFF
+for (f in files) {
 
   img <- image_read(f)
 
@@ -56,10 +61,10 @@ for(f in files){
 
   image_write(
     img,
-    path=paste0("~/Desktop/immages/tiff_files/",name,".tiff"),
-    format="tiff",
-    density="600x600",
-    compression="none"
+    path = paste0("~/Desktop/immages/tiff_files/", name, ".tiff"),
+    format = "tiff",
+    density = "600x600",
+    compression = "none"
   )
 
 }
